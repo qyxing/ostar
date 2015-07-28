@@ -122,18 +122,24 @@ func priKeyIO(pri *rsa.PrivateKey, r io.Reader, w io.Writer, isEncrytp bool) err
 	buf := make([]byte, k)
 	var err error
 	var b []byte
+	size := 0
 	for {
-		_, err = r.Read(buf)
+		size, err = r.Read(buf)
 		if err != nil {
 			if err == io.EOF {
 				return nil
 			}
 			return err
 		}
-		if isEncrytp {
-			b, err = priKeyEncrypt(rand.Reader, pri, buf)
+		if size < k {
+			b = buf[:size]
 		} else {
-			b, err = rsa.DecryptPKCS1v15(rand.Reader, pri, buf)
+			b = buf
+		}
+		if isEncrytp {
+			b, err = priKeyEncrypt(rand.Reader, pri, b)
+		} else {
+			b, err = rsa.DecryptPKCS1v15(rand.Reader, pri, b)
 		}
 
 		if err != nil {
