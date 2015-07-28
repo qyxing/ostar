@@ -5,7 +5,7 @@ pRIVATE_KEY: 私钥字符串
 
 pubErr, priErr := codec.RSA.Init(pUBLICK_KEY, pRIVATE_KEY)
 
-//pubErr, priErr := codec.RSA.InitByFile(pubFile, priFile, false)
+//pubErr, priErr = codec.RSA.InitByFile(pubFile, priFile, false)
 
 log.Println("init error:", pubErr, priErr)
 
@@ -13,25 +13,17 @@ log.Println("init error:", pubErr, priErr)
 
 str, err := codec.RSA.String("golang", codec.MODE_PRIKEY_ENCRYPT)
 
-log.Println("prikey encrypt:", str, err)
-
 公钥解密
 
 str, err = codec.RSA.String(str, codec.MODE_PUBKEY_DECRYPT)
-
-log.Println("pubkey decrypt:", str, err)
 
 公钥加密
 
 str, err = codec.RSA.String(str, codec.MODE_PUBKEY_ENCRYPT)
 
-log.Println("pubkey encrypt:", str, err)
-
 私钥解密
 
 str, err = codec.RSA.String(str, codec.MODE_PRIKEY_DECRYPT)
-
-log.Println("private encrypt:", str, err)
 
 
 byte操作
