@@ -1,3 +1,4 @@
+/*
 package main
 
 import (
@@ -61,3 +62,4 @@ func test_rsa() {
 	log.Println("private encrypt:", str, err)
 
 }
+*/
