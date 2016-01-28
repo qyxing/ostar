@@ -27,12 +27,15 @@ public class RSASecurity {
 	
 	public RSASecurity(String pub, String pri, KeySize size) throws PubkeyException, PrikeyException {
 		this.size = size;
-		this.pubKey = getPublicKey(pub);
-		this.priKey = getPrivateKey(pri);
+		if (pub != null){
+			this.pubKey = getPublicKey(pub);
+		}
+		if (pri != null){
+			this.priKey = getPrivateKey(pri);
+		}
 	}
 	
 	public class PubkeyException extends Exception {
-		private static final long serialVersionUID = 2416296748628947909L;
 		public PubkeyException(Throwable cause){
 			super(cause);
 			
@@ -40,7 +43,6 @@ public class RSASecurity {
 	}
 	
 	public class PrikeyException extends Exception {
-		private static final long serialVersionUID = -233684887155150306L;
 		public PrikeyException(Throwable cause){
 			super(cause);
 		}
