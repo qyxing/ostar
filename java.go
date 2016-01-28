@@ -115,7 +115,7 @@ public class RSASecurity {
 		}
 	}
 	
-	/*加密*/
+	//加密
 	private void encrypt(Cipher cipher, InputStream in, OutputStream os) throws Exception{
 		byte[] buf = new byte[size.value()/8-11];
 		int len = 0;
@@ -123,7 +123,7 @@ public class RSASecurity {
 			os.write(cipher.doFinal(buf, 0, len));
 		}
 	}
-	/*解密*/
+	//解密
 	private void decrypt(Cipher cipher, InputStream in, OutputStream os) throws Exception{
 		byte[] buf = new byte[size.value()/8];
 		while (in.read(buf) != -1) {
@@ -131,7 +131,7 @@ public class RSASecurity {
 		}
 	}
 
-	/*获取公钥Cipher*/
+	//获取公钥Cipher
 	private PublicKey getPublicKey(String pubString) throws PubkeyException  {
 		try{
 			byte[] keyBytes = Base64.decodeBase64(pubString);
@@ -144,7 +144,7 @@ public class RSASecurity {
 		}
 		
 	}
-	/*获取私钥*/
+	//获取私钥
 	private PrivateKey getPrivateKey(String priString) throws PrikeyException {
 		try{
 			byte[] keyBytes = Base64.decodeBase64(priString);
@@ -156,7 +156,7 @@ public class RSASecurity {
 			throw new PrikeyException(e);
 		}
 	}
-	/* 生成公私钥 */
+	// 生成公私钥
 	public static void generateKeyPair(KeySize size) throws Exception {
 		SecureRandom secureRandom = new SecureRandom();
 		KeyPairGenerator keyPairGenerator = KeyPairGenerator.getInstance("RSA");
@@ -169,22 +169,18 @@ public class RSASecurity {
 		char[] pubKey = Base64.encodeBase64String(publicKey.getEncoded()).toCharArray();
 		for (int i=0; i<pubKey.length; i++){
 			System.out.print(pubKey[i]);
-			/*
-			if (i % 64 == 63){
-				System.out.println();
-			}
-			*/
+			//if (i % 64 == 63){
+				//System.out.println();
+			//}
 		}
 		System.out.println();
 		System.out.println("privatekey:");
 		char[] priKey = Base64.encodeBase64String(privateKey.getEncoded()).toCharArray();
 		for (int i=0; i<priKey.length; i++){
 			System.out.print(priKey[i]);
-			/*
-			if (i % 64 == 63){
-				System.out.println();
-			}
-			*/
+			//if (i % 64 == 63){
+				//System.out.println();
+			//}
 		}
 		System.out.println();
 	}
