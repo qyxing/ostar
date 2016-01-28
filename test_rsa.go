@@ -3,7 +3,7 @@ package main
 
 import (
 	"log"
-	"qiniu/codec"
+	"ostar/codec"
 )
 
 const (
