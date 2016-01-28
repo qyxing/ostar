@@ -169,18 +169,14 @@ public class RSASecurity {
 		char[] pubKey = Base64.encodeBase64String(publicKey.getEncoded()).toCharArray();
 		for (int i=0; i<pubKey.length; i++){
 			System.out.print(pubKey[i]);
-			//if (i % 64 == 63){
-				//System.out.println();
-			//}
+			//if (i % 64 == 63){System.out.println();}
 		}
 		System.out.println();
 		System.out.println("privatekey:");
 		char[] priKey = Base64.encodeBase64String(privateKey.getEncoded()).toCharArray();
 		for (int i=0; i<priKey.length; i++){
 			System.out.print(priKey[i]);
-			//if (i % 64 == 63){
-				//System.out.println();
-			//}
+			//if (i % 64 == 63){System.out.println();}
 		}
 		System.out.println();
 	}
