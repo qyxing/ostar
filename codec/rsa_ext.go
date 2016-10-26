@@ -5,6 +5,7 @@ import (
 	"crypto/rand"
 	"crypto/rsa"
 	"crypto/x509"
+	"encoding/base64"
 	"encoding/pem"
 	"errors"
 	"io"
@@ -196,13 +197,27 @@ func priKeyByte(pri *rsa.PrivateKey, in []byte, isEncrytp bool) ([]byte, error) 
 	}
 }
 
+var pemStart = []byte("-----BEGIN ")
+
 /*读取公钥*/
+//公钥可以没有如 -----BEGIN PUBLIC KEY-----的前缀后缀
 func getPubKey(in []byte) (*rsa.PublicKey, error) {
-	block, _ := pem.Decode(in)
-	if block == nil {
-		return nil, ErrPublicKey
+	var pubKeyBytes []byte
+	if bytes.HasPrefix(in, pemStart) {
+		block, _ := pem.Decode(in)
+		if block == nil {
+			return nil, ErrPublicKey
+		}
+		pubKeyBytes = block.Bytes
+	} else {
+		var err error
+		pubKeyBytes, err = base64.StdEncoding.DecodeString(string(in))
+		if err != nil {
+			return nil, ErrPublicKey
+		}
 	}
-	pub, err := x509.ParsePKIXPublicKey(block.Bytes)
+
+	pub, err := x509.ParsePKIXPublicKey(pubKeyBytes)
 	if err != nil {
 		return nil, err
 	} else {
